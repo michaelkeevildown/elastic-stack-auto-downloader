@@ -2,11 +2,16 @@
 import os
 import requests
 import sys
+import warnings
 from clint.textui import progress
+
+
 
 #### SET DOWNLOAD PATH ####
 download_path = "~/Downloads/"
 #### SET DOWNLOAD PATH ####
+
+
 
 # download funciton with progress bar
 def download(link, file_name):
@@ -26,7 +31,8 @@ def download(link, file_name):
             dl = 0
             total_length = int(total_length)
             total_mb = float(total_length / 1024) / 1024
-            for data in response.iter_content(chunk_size=1000000):
+            print 'Total download size: %.2fMB' % total_mb
+            for data in response.iter_content(chunk_size=1000):
                 dl += len(data)
                 f.write(data)
                 done = int(50 * dl / total_length)
@@ -48,6 +54,10 @@ def url(product, version):
     else:
         link = 'https://download.elastic.co/%s/%s/%s-%s-darwin.tar.gz' % (product_type, product, product, version)
     return link
+
+def global_product(new_product):
+    global product
+    product = new_product
 
 # define the elastic stack & download links
 def elasticsearch():
@@ -80,15 +90,25 @@ def topbeat():
     path = '%stopbeat-%s.zip' % (download_path, version)
     download(link, path)
 
-def winlogbeat():
-    link = url(product, version)
-    path = '%stopbeat-%s.zip' % (download_path, version)
-    download(link, path)
-
 def metricbeat():
     link = url(product, version)
     path = '%stopbeat-%s.zip' % (download_path, version)
     download(link, path)
+
+def all():
+    global_product('elasticsearch')
+    elasticsearch()
+    global_product('kibana')
+    kibana()
+    global_product('packetbeat')
+    packetbeat()
+    global_product('filebeat')
+    filebeat()
+    global_product('metricbeat')
+    metricbeat()
+    global_product('topbeat')
+    topbeat()
+
 
 # map the inputs to the function blocks
 options = {
@@ -98,8 +118,8 @@ options = {
     "packetbeat": packetbeat,
     "metricbeat": metricbeat,
     "filebeat": filebeat,
-    "winlogbeat": winlogbeat,
-    "topbeat": topbeat
+    "topbeat": topbeat,
+    "all": all
 }
 
 ## Setup ##
@@ -119,11 +139,11 @@ if len(args) > 2:
     sys.exit(error)
 
 # Read args
-product = args[0].lower()
+global_product(args[0].lower())
 version = args[1].lower()
 
 print '\n############################'
-print 'Product:', product.upper()
+print 'Product(s):', product.upper()
 print 'Version:', version.upper()
 print '############################'
 ## Setup ##
