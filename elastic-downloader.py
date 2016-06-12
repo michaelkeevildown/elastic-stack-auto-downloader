@@ -1,4 +1,5 @@
 #!/usr/bin/python
+import csv
 import os
 import requests
 import sys
@@ -12,6 +13,12 @@ download_path = "~/Downloads/"
 #### SET DOWNLOAD PATH ####
 
 
+# call all functions to download products
+def trigger(product):
+    try:
+        options[product]()
+    except Exception as e:
+        print "## Invalid product: %s -- Please try again!" % product
 
 # download funciton with progress bar
 def download(link, file_name):
@@ -23,7 +30,7 @@ def download(link, file_name):
 
         if response.status_code != 200:
             print 'HTTP Status Code: %s' % response.status_code
-            error = '#### Invalid version: %s ####' % version
+            print '#### Invalid version: %s ####' % version
         else:
             if total_length is None: # no content length header
                 f.write(response.content)
@@ -55,6 +62,7 @@ def url(product, version):
         link = 'https://download.elastic.co/%s/%s/%s-%s-darwin.tar.gz' % (product_type, product, product, version)
     return link
 
+# override global product variable
 def global_product(new_product):
     global product
     product = new_product
@@ -63,26 +71,31 @@ def global_product(new_product):
 def elasticsearch():
     link = 'https://download.elasticsearch.org/elasticsearch/release/org/elasticsearch/distribution/zip/elasticsearch/%s/elasticsearch-%s.zip' % (version, version)
     path = '%selasticsearch-%s.zip' % (download_path, version)
+    global_product('elasticsearch')
     download(link, path)
 
 def logstash():
     link = 'https://download.elastic.co/logstash/logstash/logstash-%s.zip' % version
     path = '%slogstash-%s.zip' % (download_path, version)
+    global_product('logstash')
     download(link, path)
 
 def kibana():
     link = url(product, version)
     path = '%skibana-%s.zip' % (download_path, version)
+    global_product('kibana')
     download(link, path)
 
 def packetbeat():
     link = url(product, version)
     path = '%spacketbeat-%s.zip' % (download_path, version)
+    global_product('packetbeat')
     download(link, path)
 
 def filebeat():
     link = url(product, version)
     path = '%sfilebeat-%s.zip' % (download_path, version)
+    global_product('filebeat')
     download(link, path)
 
 def topbeat():
@@ -92,6 +105,7 @@ def topbeat():
     if first_char < 5:
         link = url(product, version)
         path = '%stopbeat-%s.zip' % (download_path, version)
+        global_product('topbeat')
         download(link, path)
     else:
         print 'Topbeat has been merged with Metricbeat from relase 5.x and onwards'
@@ -99,6 +113,7 @@ def topbeat():
 def metricbeat():
     link = url(product, version)
     path = '%stopbeat-%s.zip' % (download_path, version)
+    global_product('metricbeat')
     download(link, path)
 
 def all():
@@ -155,9 +170,11 @@ print '############################'
 ## Setup ##
 
 ## Start ##
-try:
-    options[product]()
-except Exception as e:
-    # raise
-    print "## Invalid product: %s -- Please try again!" % product
+# parse product argument to see if it is a list
+if ',' not in product:
+    trigger(product)
+else:
+    product_array = product.split(',')
+    for single_product in product_array:
+        trigger(single_product)
 ## Start ##
