@@ -24,21 +24,21 @@ def download(link, file_name):
         if response.status_code != 200:
             print 'HTTP Status Code: %s' % response.status_code
             error = '#### Invalid version: %s ####' % version
-            sys.exit(error)
-        if total_length is None: # no content length header
-            f.write(response.content)
         else:
-            dl = 0
-            total_length = int(total_length)
-            total_mb = float(total_length / 1024) / 1024
-            print 'Total download size: %.2fMB' % total_mb
-            for data in response.iter_content(chunk_size=1000):
-                dl += len(data)
-                f.write(data)
-                done = int(50 * dl / total_length)
-                dl_mb = float(dl / 1024) / 1024
-                sys.stdout.write("\r[%s%s] %.2fMB/%.2fMB" % ('=' * done, ' ' * (50-done), total_mb, dl_mb) )
-                sys.stdout.flush()
+            if total_length is None: # no content length header
+                f.write(response.content)
+            else:
+                dl = 0
+                total_length = int(total_length)
+                total_mb = float(total_length / 1024) / 1024
+                print 'Total download size: %.2fMB' % total_mb
+                for data in response.iter_content(chunk_size=1000):
+                    dl += len(data)
+                    f.write(data)
+                    done = int(50 * dl / total_length)
+                    dl_mb = float(dl / 1024) / 1024
+                    sys.stdout.write("\r[%s%s] %.2fMB/%.2fMB" % ('=' * done, ' ' * (50-done), total_mb, dl_mb) )
+                    sys.stdout.flush()
 
 # dynamicly change URL for version less and version 5.x
 def url(product, version):
@@ -86,9 +86,15 @@ def filebeat():
     download(link, path)
 
 def topbeat():
-    link = url(product, version)
-    path = '%stopbeat-%s.zip' % (download_path, version)
-    download(link, path)
+    # this has been added as topbeat will be merged into metricbeat from 5.x onwards
+    split_version = version.split(".")
+    first_char = int(split_version[0])
+    if first_char < 5:
+        link = url(product, version)
+        path = '%stopbeat-%s.zip' % (download_path, version)
+        download(link, path)
+    else:
+        print 'Topbeat has been merged with Metricbeat from relase 5.x and onwards'
 
 def metricbeat():
     link = url(product, version)
