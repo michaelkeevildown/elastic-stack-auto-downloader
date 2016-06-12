@@ -81,21 +81,22 @@ def logstash():
     download(link, path)
 
 def kibana():
+    global_product('kibana')
     link = url(product, version)
     path = '%skibana-%s.zip' % (download_path, version)
     global_product('kibana')
     download(link, path)
 
 def packetbeat():
+    global_product('packetbeat')
     link = url(product, version)
     path = '%spacketbeat-%s.zip' % (download_path, version)
-    global_product('packetbeat')
     download(link, path)
 
 def filebeat():
+    global_product('filebeat')
     link = url(product, version)
     path = '%sfilebeat-%s.zip' % (download_path, version)
-    global_product('filebeat')
     download(link, path)
 
 def topbeat():
@@ -103,17 +104,17 @@ def topbeat():
     split_version = version.split(".")
     first_char = int(split_version[0])
     if first_char < 5:
+        global_product('topbeat')
         link = url(product, version)
         path = '%stopbeat-%s.zip' % (download_path, version)
-        global_product('topbeat')
         download(link, path)
     else:
         print 'Topbeat has been merged with Metricbeat from relase 5.x and onwards'
 
 def metricbeat():
+    global_product('metricbeat')
     link = url(product, version)
     path = '%stopbeat-%s.zip' % (download_path, version)
-    global_product('metricbeat')
     download(link, path)
 
 def all():

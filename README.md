@@ -9,6 +9,7 @@
 If you have, then this is an answer to your problems! This utility will allow you to use the command line to download any version of the following products.
 
 - Elasticsearch
+- Kibana
 - Logstash
 - All Beats
   - Packet
@@ -38,6 +39,23 @@ or
 `elastic-downloader elasticsearch 2.3.3`
 
 If moved into your `$PATH`. There is a crude bash script that do this for you.
+
+### Examples:
+
+Here are all the commands that will download `Elasticsearch 2.3.3`, this can be replicated for all products. I am also going to chose only one of the commands above for simplicity but again this will work for all 3 different commands shown above.
+
+##### Option 1 - Single Product
+`elastic-downloader elasticsearch 2.3.3`
+
+##### Option 2 - Multiple products same version
+`elastic-downloader elasticsearch,kibana 2.3.3`
+
+##### Option 3 - All Products for a specific version
+`elastic-downloader all 2.3.3`
+
+##### Option 4 - Multiple products but **different** versions
+Stop being lazy and run the command twice..JEZZZ!
+
 
 ## Config:
 
