@@ -1,11 +1,15 @@
 #!/usr/bin/python
+import os
 import requests
 import sys
 from clint.textui import progress
 
 #### SET DOWNLOAD PATH ####
-download_path = "/Users/mdown/Downloads/" # Must have trailing slash
+download_path = "~/Downloads/" # Must have trailing slash
 #### SET DOWNLOAD PATH ####
+
+# expand users local directory
+download_path = os.path.expanduser(download_path)
 
 # remove python script name from args
 args = sys.argv[1:]
