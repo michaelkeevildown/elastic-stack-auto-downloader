@@ -41,7 +41,8 @@ If moved into your `$PATH`. There is a crude bash script that do this for you.
 
 ## Config:
 
-- To set download path change the `download_path` variable in the script.
+- To set download path change the `download_path` variable in the script. The default is `~/Downloads/`.
+
 - Add to `$PATH` for the most seamless integration so you only have to run -> `elastic-downloader elasticsearch 2.3.3`
 
 ### Limitations
