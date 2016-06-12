@@ -16,6 +16,10 @@ def download(link, file_name):
         response = requests.get(link, stream=True)
         total_length = response.headers.get('content-length')
 
+        if response.status_code != 200:
+            print 'HTTP Status Code: %s' % response.status_code
+            error = '#### Invalid version: %s ####' % version
+            sys.exit(error)
         if total_length is None: # no content length header
             f.write(response.content)
         else:
@@ -118,8 +122,10 @@ if len(args) > 2:
 product = args[0].lower()
 version = args[1].lower()
 
-print '\nProduct:', product.upper()
+print '\n############################'
+print 'Product:', product.upper()
 print 'Version:', version.upper()
+print '############################'
 ## Setup ##
 
 ## Start ##

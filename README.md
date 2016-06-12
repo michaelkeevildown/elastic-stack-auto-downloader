@@ -3,7 +3,8 @@
 ## What is the point of this?!
 
 - Have you ever wanted to download an older version of **Elasticsearch** or **Kibana**?
-- Have you spent more time than you should going through the **Past Releases**?
+- Have you spent more time than you should going through the **Past Releases** to find the exact version?
+- Ever wanted a command line tool to do all the above?
 
 If you have, then this is an answer to your problems! This utility will allow you to use the command line to download any version of the following products.
 
