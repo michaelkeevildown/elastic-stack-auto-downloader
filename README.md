@@ -1,5 +1,21 @@
 # Elastic Stack Auto Downloader
 
+## What is the point of this?!
+
+- Have you ever wanted to downloaded a older version of one of the elements of the Elastic Stack?
+- Have you spent more time than you should going through the **Past Releases**?
+
+If you have then this is an answer to your problems! This utility will allow you to use the command line to download any version of the following products.
+
+- Elasticsearch
+- Logstash
+- All Beats
+  - Packet
+  - Top
+  - Metric
+  - File
+  - Winlog
+
 ## Intro
 This python script will automatically download any of the Elastic Stack products with only two command line params:
 
