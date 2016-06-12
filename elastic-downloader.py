@@ -5,31 +5,13 @@ import sys
 from clint.textui import progress
 
 #### SET DOWNLOAD PATH ####
-download_path = "~/Downloads/" # Must have trailing slash
+download_path = "~/Downloads/"
 #### SET DOWNLOAD PATH ####
-
-# expand users local directory
-download_path = os.path.expanduser(download_path)
-
-# remove python script name from args
-args = sys.argv[1:]
-
-# Check number of args
-if len(args) > 2:
-    error = 'Too many command line arguments.', str(args)
-    sys.exit(error)
-
-# Read args
-product = args[0].lower()
-version = args[1].lower()
-
-print 'Product:', product.upper()
-print 'Version:', version
 
 # download funciton with progress bar
 def download(link, file_name):
     with open(file_name, "wb") as f:
-        print "Downloading %s from: %s" % (product, link)
+        print "\nDownloading %s from: %s" % (product, link)
         print "Saving %s to: %s" % (product, file_name)
         response = requests.get(link, stream=True)
         total_length = response.headers.get('content-length')
@@ -116,4 +98,30 @@ options = {
     "topbeat": topbeat
 }
 
+## Setup ##
+# ensure download path has trailing slash
+if download_path.endswith('/') == False:
+    download_path = '%s/' % download_path
+
+# expand users local directory
+download_path = os.path.expanduser(download_path)
+
+# remove python script name from args
+args = sys.argv[1:]
+
+# Check number of args
+if len(args) > 2:
+    error = 'Too many command line arguments.', str(args)
+    sys.exit(error)
+
+# Read args
+product = args[0].lower()
+version = args[1].lower()
+
+print '\nProduct:', product.upper()
+print 'Version:', version.upper()
+## Setup ##
+
+## Start ##
 options[product]()
+## Start ##
