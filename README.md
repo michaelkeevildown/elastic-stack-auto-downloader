@@ -15,15 +15,17 @@ If you have, then this is an answer to your problems! This utility will allow yo
   - Top
   - Metric
   - File
-  - Winlog
 
-## Intro
-This python script will automatically download any of the Elastic Stack products with only two command line params:
+## How to use:
+
+When you execute the python script **two** command line arguments have to be passed. They are as follows:
 
 1. **Product Name** e.g. elasticsearch
 2. **Version** e.g. 2.3.3 or 5.0.0-alpha3
 
-To run, download the python script and run the following command:
+**n.b The order in which they are passed is critical.**
+
+To download your the specific version fo the application you can execute you the script in one of three ways:
 
 `./elastic-downloader.py elasticsearch 2.3.3`
 
@@ -31,7 +33,13 @@ or
 
 `python elastic-downloader.py elasticsearch 2.3.3`
 
-## Config
+or
+
+`elastic-downloader elasticsearch 2.3.3`
+
+If moved into your `$PATH`. There is a crude bash script that do this for you.
+
+## Config:
 
 - To set download path change the `download_path` variable in the script.
 - Add to `$PATH` for the most seamless integration so you only have to run -> `elastic-downloader elasticsearch 2.3.3`
