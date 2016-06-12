@@ -4,7 +4,7 @@ import sys
 from clint.textui import progress
 
 #### SET DOWNLOAD PATH ####
-download_path = "/Users/mdown/Downloads/"
+download_path = "/Users/mdown/Downloads/" # Must have trailing slash
 #### SET DOWNLOAD PATH ####
 
 # remove python script name from args
@@ -41,8 +41,23 @@ def download(link, file_name):
                 f.write(data)
                 done = int(50 * dl / total_length)
                 dl_mb = float(dl / 1024) / 1024
-                sys.stdout.write("\r[%s%s] %.2f/%.2f" % ('=' * done, ' ' * (50-done), total_mb, dl_mb) )
+                sys.stdout.write("\r[%s%s] %.2fMB/%.2fMB" % ('=' * done, ' ' * (50-done), total_mb, dl_mb) )
                 sys.stdout.flush()
+
+# dynamicly change URL for version less and version 5.x
+def url(product, version):
+    split_version = version.split(".")
+    first_char = int(split_version[0])
+    if product != "kibana":
+        product_type = "beats"
+    else:
+        product_type = "kibana"
+
+    if first_char >= 5:
+        link = 'https://download.elastic.co/%s/%s/%s-%s-darwin-x64.tar.gz' % (product_type, product, product, version)
+    else:
+        link = 'https://download.elastic.co/%s/%s/%s-%s-darwin.tar.gz' % (product_type, product, product, version)
+    return link
 
 # define the elastic stack & download links
 def elasticsearch():
@@ -55,10 +70,46 @@ def logstash():
     path = '%slogstash-%s.zip' % (download_path, version)
     download(link, path)
 
+def kibana():
+    link = url(product, version)
+    path = '%skibana-%s.zip' % (download_path, version)
+    download(link, path)
+
+def packetbeat():
+    link = url(product, version)
+    path = '%spacketbeat-%s.zip' % (download_path, version)
+    download(link, path)
+
+def filebeat():
+    link = url(product, version)
+    path = '%sfilebeat-%s.zip' % (download_path, version)
+    download(link, path)
+
+def topbeat():
+    link = url(product, version)
+    path = '%stopbeat-%s.zip' % (download_path, version)
+    download(link, path)
+
+def winlogbeat():
+    link = url(product, version)
+    path = '%stopbeat-%s.zip' % (download_path, version)
+    download(link, path)
+
+def metricbeat():
+    link = url(product, version)
+    path = '%stopbeat-%s.zip' % (download_path, version)
+    download(link, path)
+
 # map the inputs to the function blocks
 options = {
     "elasticsearch" : elasticsearch,
-    "logstash": logstash
+    "logstash": logstash,
+    "kibana": kibana,
+    "packetbeat": packetbeat,
+    "metricbeat": metricbeat,
+    "filebeat": filebeat,
+    "winlogbeat": winlogbeat,
+    "topbeat": topbeat
 }
 
 options[product]()
