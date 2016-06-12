@@ -1,4 +1,4 @@
-# Auto Elastic Stack Downloader
+# Elastic Stack Auto Downloader
 
 ## Intro
 This python script will automatically download any of the Elastic Stack products with only two command line params:
