@@ -155,5 +155,9 @@ print '############################'
 ## Setup ##
 
 ## Start ##
-options[product]()
+try:
+    options[product]()
+except Exception as e:
+    # raise
+    print "## Invalid product: %s -- Please try again!" % product
 ## Start ##
