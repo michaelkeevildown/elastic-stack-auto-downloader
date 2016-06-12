@@ -44,3 +44,4 @@ or
 
 - Remove hard coded download path
 - Add Windows & Linux compatibility
+- Add the ability to specify more than one product at a time in CSV e.g. kibana,elasticsearch 
