@@ -54,7 +54,7 @@ Here are all the commands that will download `Elasticsearch 2.3.3`, this can be 
 `elastic-downloader all 2.3.3`
 
 ##### Option 4 - Multiple products but **different** versions
-Stop being lazy and run the command twice..JEZZZ!
+Stop being lazy and run the command twice..JEZZ! Plus this wont matter for version greater than 5.x, as everything will be on the same version.
 
 
 ## Config:
