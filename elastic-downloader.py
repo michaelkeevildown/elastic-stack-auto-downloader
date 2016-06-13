@@ -3,15 +3,11 @@ import csv
 import os
 import requests
 import sys
-import warnings
 from clint.textui import progress
-
-
 
 #### SET DOWNLOAD PATH ####
 download_path = "~/Downloads/"
 #### SET DOWNLOAD PATH ####
-
 
 # call all functions to download products
 def trigger(product):
@@ -24,6 +20,7 @@ def trigger(product):
 def download(link, file_name):
     print "\nDownloading %s from: %s" % (product, link)
     print "Saving %s to: %s" % (product, file_name)
+    release_notes(product, version)
     response = requests.get(link, stream=True)
     total_length = response.headers.get('content-length')
 
@@ -65,6 +62,12 @@ def url(product, version):
 
     return link
 
+# print out release notes url
+def release_notes(product, version):
+    version_release = version.replace('.', '-')
+    link = 'https://www.elastic.co/downloads/past-releases/%s-%s' % (product, version_release)
+    print '\n### Relase Notes: %s ###\n' % link
+
 # override global product variable
 def global_product(new_product):
     global product
@@ -86,20 +89,20 @@ def logstash():
 def kibana():
     global_product('kibana')
     link = url(product, version)
-    path = '%skibana-%s.zip' % (download_path, version)
+    path = '%skibana-%s.tar.gz' % (download_path, version)
     global_product('kibana')
     download(link, path)
 
 def packetbeat():
     global_product('packetbeat')
     link = url(product, version)
-    path = '%spacketbeat-%s.zip' % (download_path, version)
+    path = '%spacketbeat-%s.tar.gz' % (download_path, version)
     download(link, path)
 
 def filebeat():
     global_product('filebeat')
     link = url(product, version)
-    path = '%sfilebeat-%s.zip' % (download_path, version)
+    path = '%sfilebeat-%s.tar.gz' % (download_path, version)
     download(link, path)
 
 def topbeat():
@@ -109,7 +112,7 @@ def topbeat():
     if first_char < 5:
         global_product('topbeat')
         link = url(product, version)
-        path = '%stopbeat-%s.zip' % (download_path, version)
+        path = '%stopbeat-%s.tar.gz' % (download_path, version)
         download(link, path)
     else:
         print 'Topbeat has been merged with Metricbeat from relase 5.x and onwards'
@@ -117,7 +120,7 @@ def topbeat():
 def metricbeat():
     global_product('metricbeat')
     link = url(product, version)
-    path = '%stopbeat-%s.zip' % (download_path, version)
+    path = '%stopbeat-%s.tar.gz' % (download_path, version)
     download(link, path)
 
 def all():
