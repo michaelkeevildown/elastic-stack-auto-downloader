@@ -22,16 +22,16 @@ def trigger(product):
 
 # download funciton with progress bar
 def download(link, file_name):
-    with open(file_name, "wb") as f:
-        print "\nDownloading %s from: %s" % (product, link)
-        print "Saving %s to: %s" % (product, file_name)
-        response = requests.get(link, stream=True)
-        total_length = response.headers.get('content-length')
+    print "\nDownloading %s from: %s" % (product, link)
+    print "Saving %s to: %s" % (product, file_name)
+    response = requests.get(link, stream=True)
+    total_length = response.headers.get('content-length')
 
-        if response.status_code != 200:
-            print 'HTTP Status Code: %s' % response.status_code
-            print '#### Invalid version: %s ####' % version
-        else:
+    if response.status_code != 200:
+        print 'HTTP Status Code: %s' % response.status_code
+        print '#### Invalid version: %s ####' % version
+    else:
+        with open(file_name, "wb") as f:
             if total_length is None: # no content length header
                 f.write(response.content)
             else:
@@ -56,10 +56,13 @@ def url(product, version):
     else:
         product_type = "kibana"
 
-    if first_char >= 5:
+    if first_char >= 5 and product_type == "beats":
+        link = 'https://download.elastic.co/%s/%s/%s-%s-darwin-x64.tar.gz' % (product_type, product, product, version)
+    elif first_char >= 4 and product_type == "kibana":
         link = 'https://download.elastic.co/%s/%s/%s-%s-darwin-x64.tar.gz' % (product_type, product, product, version)
     else:
         link = 'https://download.elastic.co/%s/%s/%s-%s-darwin.tar.gz' % (product_type, product, product, version)
+
     return link
 
 # override global product variable
