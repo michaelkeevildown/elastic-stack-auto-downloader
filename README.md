@@ -122,6 +122,6 @@ There are a number of libraries that are required in order for this script to wo
 
 ### Improvements
 
-- [x] Remove hard coded download path
+- [x] Remove hard coded FULL download path. Allow shortened locations e.g. ~/ instead of /Users/{username}/Downloads
 - [x] Add the ability to specify more than one product at a time in CSV e.g. kibana,elasticsearch
 - [ ] Add Windows & Linux compatibility
