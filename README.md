@@ -69,7 +69,7 @@ Below are the combinations of the product names that can be used in this tool.
 
 ##### Kibana:
 
-`elastic-downloader elasticsearch 5.0.0-alpha3`
+`elastic-downloader kibana 5.0.0-alpha3`
 
 ##### Logstash:
 
