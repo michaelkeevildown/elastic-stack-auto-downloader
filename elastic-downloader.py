@@ -116,6 +116,8 @@ def topbeat():
         download(link, path)
     else:
         print 'Topbeat has been merged with Metricbeat from relase 5.x and onwards'
+        print 'Don\'t worry I will download Metricbeat for you...'
+        metricbeat()
 
 def metricbeat():
     global_product('metricbeat')
@@ -140,12 +142,17 @@ def all():
 # map the inputs to the function blocks
 options = {
     "elasticsearch" : elasticsearch,
+    "es": elasticsearch,
     "logstash": logstash,
     "kibana": kibana,
     "packetbeat": packetbeat,
+    "packet": packetbeat,
     "metricbeat": metricbeat,
+    "metric": metricbeat,
     "filebeat": filebeat,
+    "file": filebeat,
     "topbeat": topbeat,
+    "top": topbeat,
     "all": all
 }
 
