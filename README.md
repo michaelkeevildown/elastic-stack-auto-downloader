@@ -56,7 +56,52 @@ Here are all the commands that will download `Elasticsearch 2.3.3`, this can be 
 ##### Option 4 - Multiple products but **different** versions
 Stop being lazy and run the command twice..JEZZ! Plus this wont matter for version greater than 5.x, as everything will be on the same version.
 
-### Dependencies:
+### Product names & short hand versions:
+
+Below are the combinations of the product names that can be used in this tool.
+
+##### Elasticsearch:
+
+
+`elastic-downloader elasticsearch 5.0.0-alpha3`
+
+`elastic-downloader es 5.0.0-alpha3`
+
+##### Kibana:
+
+`elastic-downloader elasticsearch 5.0.0-alpha3`
+
+##### Logstash:
+
+`elastic-downloader logstash 5.0.0-alpha3`
+
+##### Beats:
+
+###### Packetbeat
+
+`elastic-downloader packetbeat 5.0.0-alpha3`
+
+`elastic-downloader packet 5.0.0-alpha3`
+
+###### Filebeat
+
+`elastic-downloader filebeat 5.0.0-alpha3`
+
+`elastic-downloader file 5.0.0-alpha3`
+
+###### Topbeat
+
+`elastic-downloader topbeat 5.0.0-alpha3`
+
+`elastic-downloader top 5.0.0-alpha3`
+
+###### Topbeat
+
+`elastic-downloader metricbeat 5.0.0-alpha3`
+
+`elastic-downloader metric 5.0.0-alpha3`
+
+### Install Dependencies:
 
 There are a number of libraries that are required in order for this script to work. Please follow the installation instructions below:
 
@@ -78,5 +123,5 @@ There are a number of libraries that are required in order for this script to wo
 ### Improvements
 
 - [x] Remove hard coded download path
-- [ ] Add Windows & Linux compatibility
 - [x] Add the ability to specify more than one product at a time in CSV e.g. kibana,elasticsearch
+- [ ] Add Windows & Linux compatibility
