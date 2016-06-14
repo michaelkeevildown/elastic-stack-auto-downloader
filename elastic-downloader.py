@@ -137,7 +137,6 @@ def all():
     global_product('topbeat')
     topbeat()
 
-
 # map the inputs to the function blocks
 options = {
     "elasticsearch" : elasticsearch,
