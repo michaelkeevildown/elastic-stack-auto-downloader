@@ -56,8 +56,16 @@ Here are all the commands that will download `Elasticsearch 2.3.3`, this can be 
 ##### Option 4 - Multiple products but **different** versions
 Stop being lazy and run the command twice..JEZZ! Plus this wont matter for version greater than 5.x, as everything will be on the same version.
 
+### Dependencies:
 
-## Config:
+There are a number of libraries that are required in order for this script to work. Please follow the installation instructions below:
+
+1. Install Python
+1. Install pip -- [Download Here](https://pip.pypa.io/en/stable/installing/)
+1. [Install Requests](http://docs.python-requests.org/en/master/user/install/#install) -- `pip install requests`
+1. [Install Clint](https://github.com/kennethreitz/clint)  -- **C** ommand **L** ine **IN** terface **T** ools -- `pip install clint`
+
+### Config:
 
 - To set download path change the `download_path` variable in the script. The default is `~/Downloads/`.
 
